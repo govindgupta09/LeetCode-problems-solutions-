@@ -1,0 +1,72 @@
+59. Spiral Matrix II
+Medium
+
+
+
+Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+
+ 
+
+Example 1:
+
+
+Input: n = 3
+Output: [[1,2,3],[8,9,4],[7,6,5]]
+Example 2:
+
+Input: n = 1
+Output: [[1]]
+
+##################################################################################################################################################################
+
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        int mid = n/2,val = 1;
+        
+        for(int i=0; i<mid; i++){
+            int last = n-i-1;
+
+            for(int k = i; k<last; k++){
+                res[i][k] = val++;
+            }
+            for(int k = i; k<last; k++){
+                res[k][last] = val++;
+            }
+            for(int k =last; k>i;k--){
+                res[last][k] = val++;
+            }
+            for(int k=last; k>i;k--){
+                res[k][i]= val++;
+            }
+        }
+        if(n%2 == 1) res[n/2][n/2] = val;
+        return res;
+        
+        
+        /*
+        int[][] result = new int[n][n];
+        int l =0,r = n-1, t = 0, b = n-1,x=n*n-n*n;
+        while(l<=r && t<=b){
+            for(int j=0;j<n;j++){
+                result[t][j]=x+1;
+            }
+            t++;
+            for(int i=t;i<n;i++){
+                result[i][r]=x+1;
+            }
+            r--;
+            for(int j=r;j>=0;j--){
+                result[b][j]=x+1;
+            }
+            b--;
+            for(int i=b;i>=t;i--){
+                result[i][l]=x+1;
+            }
+            l++;
+        }
+        return result;
+        */
+        
+    }
+}
