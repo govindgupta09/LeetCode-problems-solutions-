@@ -1,0 +1,117 @@
+54. Spiral Matrix
+Medium
+
+
+Given an m x n matrix, return all elements of the matrix in spiral order.
+
+ 
+
+Example 1:
+
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,3,6,9,8,7,4,5]
+Example 2:
+
+
+Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+
+
+################################################################################################################################################################
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<Integer>();
+        if(matrix == null || matrix.length == 0) return result;
+        int m = matrix.length,n = matrix[0].length,x=0,y=0;
+        while(m>0 && n>0){
+            if(m==1){
+                for(int i=0; i<n; i++){
+                    result.add(matrix[x][y++]);
+                }
+                break;
+            }
+            else if(n==1){
+                for(int i=0; i<m; i++){
+                    result.add(matrix[x++][y]);
+                }
+                break;
+            }
+            //top - move right
+            for(int i=0;i<n-1;i++){
+                result.add(matrix[x][y++]);
+            }
+            //right - move down
+            for(int i=0;i<m-1;i++){
+                result.add(matrix[x++][y]);
+            }
+            //bottom - move left
+            for(int i=0;i<n-1;i++){
+                result.add(matrix[x][y--]);
+            }
+            //left - move up
+            for(int i=0;i<m-1;i++){
+                result.add(matrix[x--][y]);
+            }
+            x++;
+            y++;
+            m=m-2;
+            n=n-2;
+        }
+        return result;
+        
+    }
+}
+/*
+
+//   Whats Wrong..
+
+
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        int rs = 0;                        // rowstart
+		int re = matrix.length - 1;        // rowend
+		int cs = 0;
+		int ce = matrix[0].length - 1;
+		int i,j,c = 1;
+		if((re + 1)==1) {
+			for(j = cs;j <= ce;j++ ) {
+				result.add(j,matrix[rs][j]);
+			}
+		}
+		else if((ce + 1)==1) {
+			for(i = rs;i <= re;i++) {
+				result.add(i,matrix[i][cs]);	
+			}
+		}
+		else{
+            while(c <= (matrix.length*matrix[0].length)) {
+                for(j = cs;j <= ce;j++) {
+					result.add(matrix[rs][j]);
+					c++;
+				}
+				rs++;
+				for(i = rs;i <= re;i++) {
+					result.add(matrix[i][ce]);
+					c++;
+				}
+				ce--;
+				for(j = ce ;j >= cs ;j--) {
+					result.add(matrix[re][j]);
+					c++;
+				}
+				re--;
+				for(i = re;i >= rs;i--) {
+					result.add(matrix[i][cs]);
+					c++;
+				}
+				cs++;
+			}
+		}
+        return result;
+        */
+
+
+
+
